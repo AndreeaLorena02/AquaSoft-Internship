@@ -200,4 +200,38 @@ increment(); //"Counter: 2"
 increment(); //"Counter: 3"
 
 //1.9 UseState helps manage state whithin a component while useRef is used for accessing and manipulating DOM elements directly.
-//Changes to the useState value will cause the component to re-render.
+//useState causes re-render, useRef does not. Both useState and useRef remembers their data after a re-render
+import React, { useState, useRef } from 'react';
+
+export function FocusInput() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+
+
+
